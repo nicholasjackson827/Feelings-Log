@@ -5,7 +5,11 @@ import type { CheckIn, LoggedEmotion } from '../types'
 export const EXPORT_FORMAT = 'feelings-log'
 export const EXPORT_VERSION = 1
 
-const today = () => new Date().toISOString().slice(0, 10)
+/** Local date as YYYY-MM-DD (toISOString would give the UTC date). */
+const today = () => {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
 
 export function exportFilename(ext: 'json' | 'csv') {
   return `feelings-log-${today()}.${ext}`
